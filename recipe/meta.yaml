@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/cookieninja-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/cookieninja-{{ version }}.tar.gz
   sha256: c74383fe90f2e234a400602fe7c16597023fd771ce5096ed7e7967f1283526a9
 
 build:
@@ -14,14 +14,14 @@ build:
     - cookieninja = cookieninja.__main__:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - binaryornot >=0.4.4
     - jinja2 >=2.7,<4.0.0
     - click >=7.0,<9.0.0
@@ -38,6 +38,7 @@ test:
     - cookieninja --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/cookieninja-generator/cookieninja
